@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracking | AgroManage Pro</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h1><i class="fas fa-tractor"></i> <span>AgroManage Pro</span></h1>
+        </div>
+        <nav class="nav-menu">
+            <!-- Same navigation as index.html -->
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-chart-line"></i> <span>Dashboard</span>
+            </a>
+            <a href="expenses.html" class="nav-item active">
+                <i class="fas fa-money-bill-wave"></i> <span>Expenses</span>
+            </a>
+            <!-- Add other menu items -->
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <header class="top-header">
+            <h2><i class="fas fa-money-bill-wave"></i> Expense Tracking</h2>
+            <div class="user-info">
+                <button class="btn btn-success" onclick="showAddExpenseModal()">
+                    <i class="fas fa-plus"></i> Add New Expense
+                </button>
+            </div>
+        </header>
+
+        <!-- Expense Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total This Month</div>
+                <div class="stat-value">₹58,420</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-label">Feed Expenses</div>
+                <div class="stat-value">₹32,150</div>
+            </div>
+            <div class="stat-card danger">
+                <div class="stat-label">Medical Expenses</div>
+                <div class="stat-value">₹8,750</div>
+            </div>
+            <div class="stat-card info">
+                <div class="stat-label">Labor Expenses</div>
+                <div class="stat-value">₹12,520</div>
+            </div>
+        </div>
+
+        <!-- Add Expense Form -->
+        <div class="form-container" id="expenseForm" style="display: none;">
+            <h3><i class="fas fa-plus-circle"></i> Add New Expense</h3>
+            <form id="addExpenseForm">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" required>
+                        <option value="">Select Category</option>
+                        <option value="feed">Feed</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="labor">Labor</option>
+                        <option value="equipment">Equipment</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" placeholder="Enter expense description" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" class="form-control" min="0" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select class="form-control">
+                        <option value="cash">Cash</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="upi">UPI</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Notes (Optional)</label>
+                    <textarea class="form-control" rows="3" placeholder="Any additional notes"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Save Expense
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="hideExpenseForm()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Expense List -->
+        <div class="table-container">
+            <h2><i class="fas fa-list"></i> Recent Expenses</h2>
+            
+            <div style="margin-bottom: 1rem;">
+                <input type="text" class="form-control" placeholder="Search expenses..." style="width: 300px;">
+                <button class="btn btn-secondary" style="margin-left: 10px;">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+                <button class="btn btn-primary" style="margin-left: 10px;">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-01-15</td>
+                        <td><span class="badge feed">Feed</span></td>
+                        <td>Layer Feed Purchase</td>
+                        <td>₹12,500</td>
+                        <td>Bank Transfer</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2024-01-14</td>
+                        <td><span class="badge medicine">Medicine</span></td>
+                        <td>Vitamin Supplements</td>
+                        <td>₹2,850</td>
+                        <td>Cash</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2024-01-13</td>
+                        <td><span class="badge labor">Labor</span></td>
+                        <td>Wages for 10 workers</td>
+                        <td>₹8,000</td>
+                        <td>Cash</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 1rem;">
+                <button class="btn btn-secondary">Previous</button>
+                <span style="margin: 0 1rem;">Page 1 of 5</span>
+                <button class="btn btn-secondary">Next</button>
+            </div>
+        </div>
+
+        <!-- Expense Summary Chart -->
+        <div class="chart-container">
+            <h2><i class="fas fa-chart-pie"></i> Expense Distribution (This Month)</h2>
+            <div id="expenseChart" style="height: 300px;"></div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        function showAddExpenseModal() {
+            document.getElementById('expenseForm').style.display = 'block';
+        }
+        
+        function hideExpenseForm() {
+            document.getElementById('expenseForm').style.display = 'none';
+        }
+        
+        // Initialize expense pie chart
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawExpenseChart);
+        
+        function drawExpenseChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Category', 'Amount'],
+                ['Feed', 32150],
+                ['Labor', 12520],
+                ['Medicine', 8750],
+                ['Equipment', 3200],
+                ['Utilities', 2800]
+            ]);
+            
+            var options = {
+                title: 'Monthly Expense Distribution',
+                pieHole: 0.4,
+                height: 300,
+                colors: ['#2e7d32', '#ff9800', '#f44336', '#2196f3', '#9c27b0']
+            };
+            
+            var chart = new google.visualization.PieChart(document.getElementById('expenseChart'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+</html>
